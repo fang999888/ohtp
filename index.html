@@ -48,6 +48,18 @@
                 <!-- 快速查詢表單 -->
                 <div class="quick-form">
                     <h2><i class="fas fa-search"></i> 快速查詢：您的房屋適用哪條路？</h2>
+                    <div class="form-row">
+    <div class="form-group" style="flex: 0 0 100%; margin-bottom: 20px;">
+        <label for="address">輸入地址自動帶入數據</label>
+        <div style="display: flex; gap: 10px;">
+            <input type="text" id="address" placeholder="例如：台北市中山區..." style="flex: 1;">
+            <button type="button" id="btn-lookup" class="btn btn-secondary" style="white-space: nowrap;">
+                <i class="fas fa-search-location"></i> 查詢分區
+            </button>
+        </div>
+        <small id="zoning-display" style="color: #666; margin-top: 5px; display: block;"></small>
+    </div>
+</div>
                     <form id="quick-check-form">
                         <div class="form-row">
                             <div class="form-group">
