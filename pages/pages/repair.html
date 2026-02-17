@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>修繕延壽｜老宅三叉路</title>
+    <meta name="description" content="老宅延壽計畫完整說明：補助項目、申請資格、流程步驟、諮詢窗口。30年以上老屋修繕補助最高960萬元。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        /* 頁面專屬樣式 */
+        .page-header {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            color: var(--primary-color);
+            border-left: 5px solid var(--path-a-color);
+            padding-left: 20px;
+        }
+        .subsection-title {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+            color: var(--dark-color);
+        }
+        .info-card {
+            background: var(--light-gray);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--path-a-color);
+        }
+        .info-card h3 {
+            color: var(--path-a-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .info-item {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .info-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .info-item h4 i {
+            color: var(--path-a-color);
+        }
+        .amount-highlight {
+            background: var(--path-a-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-left: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        th {
+            background: var(--path-a-color);
+            color: white;
+            font-weight: 500;
+            padding: 12px;
+            text-align: left;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+        .step-list {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 20px;
+            padding-left: 50px;
+            position: relative;
+            font-weight: 500;
+        }
+        .step-list li::before {
+            content: counter(step-counter);
+            background: var(--path-a-color);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .step-list li span {
+            font-weight: 400;
+            color: var(--dark-gray);
+            display: block;
+            margin-top: 5px;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .contact-card {
+            background: white;
+            border: 1px solid var(--medium-gray);
+            border-radius: 8px;
+            padding: 15px;
+            transition: transform 0.2s;
+        }
+        .contact-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .contact-card h5 {
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .contact-card p {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        .contact-card i {
+            color: var(--path-a-color);
+            width: 20px;
+            margin-right: 5px;
+        }
+        .btn-apply {
+            background: var(--path-a-color);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: 500;
+            margin: 20px 0;
+            transition: background 0.3s;
+        }
+        .btn-apply:hover {
+            background: #219a52;
+        }
+        .faq-item {
+            border-bottom: 1px solid var(--medium-gray);
+            padding: 15px 0;
+        }
+        .faq-question {
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            padding-top: 10px;
+            color: var(--dark-gray);
+            display: none;
+        }
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航列 (與首頁相同) -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="../index.html" class="logo">
+                    <i class="fas fa-home"></i> 老宅三叉路
+                </a>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="../index.html">首頁</a></li>
+                <li><a href="repair.html" class="active">修繕延壽</a></li>
+                <li><a href="renew.html">原址改建</a></li>
+                <li><a href="urban-renewal.html">都更重建</a></li>
+                <li><a href="compare.html">方案比較</a></li>
+                <li><a href="contact.html">諮詢窗口</a></li>
+            </ul>
+            <div class="navbar-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 頁面標頭 -->
+    <section class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-tools"></i> 修繕延壽（路徑A）</h1>
+            <p>老宅延壽計畫・機能復新補助・老屋修繕貸款</p>
+        </div>
+    </section>
+
+    <main>
+        <div class="container">
+            <!-- 政策概述 -->
+            <section>
+                <h2 class="section-title">計畫概述</h2>
+                <div class="info-card">
+                    <p>內政部「老宅延壽機能復新計畫」（2025-2027年）編列<span class="amount-highlight">50億元</span>預算，針對<span class="amount-highlight">30年以上</span>老舊住宅提供修繕補助，目標是「不必拆屋也能安全住」，並降低重建碳排放量達60%-70%。</p>
+                    <p><strong>申請期限：</strong>至<span class="amount-highlight">116年12月31日</span>止（2027年底）。</p>
+                    <p><strong>核心精神：</strong>補助公共空間改善（電梯、外牆、管線等）與室內無障礙/管線更新，延長老宅使用年限，提升居住安全與品質。</p>
+                </div>
+            </section>
+
+            <!-- 補助項目總表 -->
+            <section>
+                <h2 class="section-title">補助項目與金額</h2>
+                <p class="note"><i class="fas fa-info-circle"></i> 以下為中央補助上限，部分縣市可能有加碼或配套，請向當地窗口確認。</p>
+                
+                <h3 class="subsection-title">🏢 公寓（4-6層樓）公共空間</h3>
+                <p>公寓需從下列項目中「8選3」申請補助，總補助金額合計最高<span class="amount-highlight">960萬元</span>（含規劃設計及監造費）。</p>
+                <table>
+                    <thead>
+                        <tr><th>補助項目</th><th>最高補助額</th><th>備註</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>增設昇降設備（電梯）</td><td>400萬元</td><td>含無障礙設施</td></tr>
+                        <tr><td>立面修繕（外牆拉皮）</td><td>300萬元</td><td>含防水、磁磚剝落處理</td></tr>
+                        <tr><td>公共管線更新</td><td>50萬元</td><td>給排水、瓦斯、電線</td></tr>
+                        <tr><td>屋頂防水隔熱</td><td>50萬元</td><td></td></tr>
+                        <tr><td>樓梯間修繕</td><td>40萬元</td><td>含扶手、地板、照明</td></tr>
+                        <tr><td>無障礙設施</td><td>40萬元</td><td>坡道、扶手等</td></tr>
+                        <tr><td>老舊招牌拆除</td><td>40萬元</td><td>整合建築立面</td></tr>
+                        <tr><td>空調管線改善</td><td>40萬元</td><td>含冷氣主機架、管線美化</td></tr>
+                    </tbody>
+                </table>
+
+                <h3 class="subsection-title">🏡 透天住宅（6層樓以下）室外</h3>
+                <table>
+                    <thead><tr><th>補助項目</th><th>最高補助額</th><th>備註</th></tr></thead>
+                    <tbody>
+                        <tr><td>立面修繕（依樓層高度）</td><td>100萬～300萬元</td><td>1-2樓：100萬；3-4樓：200萬；5-6樓：300萬</td></tr>
+                        <tr><td>屋頂防水隔熱</td><td>20萬元</td><td></td></tr>
+                        <tr><td>空調管線改善</td><td>5萬元</td><td></td></tr>
+                        <tr><td>無障礙設施</td><td>5萬元</td><td></td></tr>
+                    </tbody>
+                </table>
+
+                <h3 class="subsection-title">🛋️ 私人室內空間</h3>
+                <p>需與公共空間補助「共同申請」，不可單獨申請。每戶補助上限：</p>
+                <ul style="margin-left: 20px; margin-bottom: 20px;">
+                    <li><strong>一般戶：</strong>20萬元（用於室內管線更新、無障礙衛浴等）</li>
+                    <li><strong>高齡/弱勢戶：</strong>30萬元（需符合社會局認定資格）</li>
+                </ul>
+                <p>室內補助項目包括：給排水管、電線、衛浴設備改善、無障礙淋浴間、扶手等。</p>
+
+                <h3 class="subsection-title">🔍 結構安全評估補助</h3>
+                <p>申請修繕前須先進行結構安全評估，評估費用亦可申請補助：</p>
+                <table>
+                    <thead><tr><th>評估類別</th><th>補助額度</th><th>對象</th></tr></thead>
+                    <tbody>
+                        <tr><td>初步評估</td><td>1.5萬元/棟</td><td>所有申請案必備</td></tr>
+                        <tr><td>詳細評估</td><td>40萬元/棟</td><td>初評結果有疑慮時適用</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 申請資格與排除條件 -->
+            <section>
+                <h2 class="section-title">申請資格與排除條件</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h4><i class="fas fa-check-circle"></i> 基本資格</h4>
+                        <ul style="list-style: disc; margin-left: 20px;">
+                            <li>屋齡30年以上（以使用執照或房屋謄本為憑）</li>
+                            <li>公寓：4-6層樓，且非單一所有權人持有</li>
+                            <li>透天：6層樓以下，單一所有權人亦可申請</li>
+                            <li>至少1戶有65歲以上長者或符合弱勢資格（申請室內補助時適用）</li>
+                        </ul>
+                    </div>
+                    <div class="info-item">
+                        <h4><i class="fas fa-check-circle"></i> 同意門檻</h4>
+                        <ul style="list-style: disc; margin-left: 20px;">
+                            <li>公寓：須經「過半數」所有權人同意（人數及應有部分均過半）</li>
+                            <li>透天：須經「全體」所有權人同意（單一所有權人即符合）</li>
+                        </ul>
+                    </div>
+                    <div class="info-item">
+                        <h4><i class="fas fa-times-circle"></i> 排除條件</h4>
+                        <ul style="list-style: disc; margin-left: 20px;">
+                            <li>公寓為單一所有權人持有（視同透天，不符公寓補助）</li>
+                            <li>已申請建造執照、拆除執照或經認定須拆除</li>
+                            <li>已報核都市更新或危老重建程序</li>
+                            <li>已申請其他相同性質之補助（如內政部其他修繕補助）</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="note">
+                    <strong>注意：</strong>「老宅延壽計畫」與「危老重建」、「都更」只能擇一申請。一旦申請本補助，未來若欲重建，可能需返還補助款，請審慎評估。
+                </div>
+            </section>
+
+            <!-- 申請流程 -->
+            <section>
+                <h2 class="section-title">申請流程四步驟</h2>
+                <ol class="step-list">
+                    <li>
+                        取得所有權人同意
+                        <span>公寓：過半數；透天：全體。建議召開區分所有權人會議或取得書面同意書。</span>
+                    </li>
+                    <li>
+                        申請結構安全評估補助
+                        <span>向當地縣市政府都市更新處或建築管理處提出「初步評估」申請，補助1.5萬元。</span>
+                    </li>
+                    <li>
+                        提出修繕申請
+                        <span>備妥：申請書、所有權人同意文件、結構評估報告、修繕計畫（含圖說、經費概算）、建築師或專業技師簽證，送件至縣市政府窗口。</span>
+                    </li>
+                    <li>
+                        施工與請款
+                        <span>核定後須於1年內完工，竣工後檢附施工前中後照片、發票收據、竣工報告，申請撥款補助。</span>
+                    </li>
+                </ol>
+                <p class="note"><i class="fas fa-clock"></i> 整體流程約需3-6個月，建議委託建築師或專業團隊協助撰寫計畫與簽證。</p>
+                <div style="text-align: center;">
+                    <a href="#" class="btn-apply"><i class="fas fa-file-alt"></i> 下載申請書範本（各縣市略有不同）</a>
+                </div>
+            </section>
+
+            <!-- 諮詢窗口 -->
+            <section>
+                <h2 class="section-title">諮詢窗口</h2>
+                <p>如有申請疑問，可優先聯繫當地縣市政府都市更新處或建築管理處，亦可洽中央專線。</p>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <h5><i class="fas fa-phone-alt"></i> 中央專線</h5>
+                        <p><i class="fas fa-phone"></i> 02-7701-9919</p>
+                        <p>內政部營建署 老宅延壽計畫辦公室</p>
+                    </div>
+                    <div class="contact-card">
+                        <h5><i class="fas fa-city"></i> 台北市</h5>
+                        <p><i class="fas fa-phone"></i> 02-2781-5696 分機3146、3149</p>
+                        <p>都市更新處 更新企劃科</p>
+                    </div>
+                    <div class="contact-card">
+                        <h5><i class="fas fa-city"></i> 新北市</h5>
+                        <p><i class="fas fa-phone"></i> 02-2960-3456 分機7181</p>
+                        <p>都市更新處 事業科</p>
+                    </div>
+                    <div class="contact-card">
+                        <h5><i class="fas fa-city"></i> 桃園市</h5>
+                        <p><i class="fas fa-phone"></i> 03-332-2101 分機6100</p>
+                        <p>住宅發展處 都市更新科</p>
+                    </div>
+                    <div class="contact-card">
+                        <h5><i class="fas fa-city"></i> 台中市</h5>
+                        <p><i class="fas fa-phone"></i> 04-2228-9111 分機69300</p>
+                        <p>都市發展局 都市更新工程科</p>
+                    </div>
+                    <div class="contact-card">
+                        <h5><i class="fas fa-city"></i> 高雄市</h5>
+                        <p><i class="fas fa-phone"></i> 07-336-8333 分機2234</p>
+                        <p>都市發展局 都市更新科</p>
+                    </div>
+                </div>
+                <p class="note">其他縣市請洽「內政部營建署」或至「政府資料開放平臺」搜尋各縣市都市更新單位聯絡方式。</p>
+            </section>
+
+            <!-- 常見問題 FAQ -->
+            <section>
+                <h2 class="section-title">常見問題</h2>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Q：我的房子屋齡28年，可以申請嗎？
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">A：屋齡必須滿30年，以使用執照或建物謄本登記為準。若未滿30年，可先規劃，待屆齡後再申請。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Q：公寓只有3戶，但我們都同意，可以申請嗎？
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">A：公寓定義為4-6層樓，若您的建築物樓層數在4-6層且戶數3戶（可能產權合併），仍符合資格，但須注意「過半數所有權人」同意，3戶需至少2戶同意。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Q：補助款需要先墊付嗎？
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">A：是的，原則上由申請人先墊付施工費用，完工後檢據核銷撥款。部分縣市可能有部分預撥機制，可洽窗口詢問。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Q：我已經請建築師設計了，可以申請補助嗎？
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">A：只要尚未施工，且符合申請資格，仍可提出申請。但設計圖需符合補助項目要求，建議送件前先與審查單位討論。</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Q：申請修繕後，未來還能辦危老或都更嗎？
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">A：可以，但可能需要返還已領取的補助款。建議先確認長期規劃，若未來確定重建，直接走危老或都更可能更划算。</div>
+                </div>
+            </section>
+
+            <!-- 相關文件下載連結 -->
+            <section>
+                <h2 class="section-title">相關文件與資源</h2>
+                <div class="info-grid" style="grid-template-columns: repeat(2,1fr);">
+                    <div class="info-item">
+                        <h4><i class="fas fa-file-pdf"></i> 老宅延壽計畫作業要點</h4>
+                        <p>內政部營建署公布之最新要點（113年修訂）</p>
+                        <a href="#" target="_blank">下載PDF</a>
+                    </div>
+                    <div class="info-item">
+                        <h4><i class="fas fa-file-excel"></i> 申請書表範本</h4>
+                        <p>含同意書、修繕計畫大綱、經費概算表</p>
+                        <a href="#" target="_blank">下載ZIP</a>
+                    </div>
+                    <div class="info-item">
+                        <h4><i class="fas fa-link"></i> 各縣市補助要點連結</h4>
+                        <p>台北、新北、桃園、台中、台南、高雄</p>
+                        <a href="#" target="_blank">前往連結</a>
+                    </div>
+                    <div class="info-item">
+                        <h4><i class="fas fa-video"></i> 線上說明會影片</h4>
+                        <p>內政部營建署舉辦之宣導說明會</p>
+                        <a href="#" target="_blank">觀看影片</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 頁尾 (與首頁相同) -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h4><i class="fas fa-home"></i> 老宅三叉路</h4>
+                    <p>整合政府最新法規與補助資訊，幫助民眾一次看懂老宅修繕、改建、都更三種選擇。資料來源皆為政府公開資訊，更新至2024年。</p>
+                </div>
+                <div class="footer-links">
+                    <h4>快速連結</h4>
+                    <ul>
+                        <li><a href="repair.html">修繕延壽</a></li>
+                        <li><a href="renew.html">原址改建</a></li>
+                        <li><a href="urban-renewal.html">都更重建</a></li>
+                        <li><a href="compare.html">方案比較</a></li>
+                        <li><a href="contact.html">諮詢窗口</a></li>
+                    </ul>
+                </div>
+                <div class="footer-disclaimer">
+                    <h4>免責聲明</h4>
+                    <p>本網站僅整理公開資訊，實際申請條件、補助金額以各主管機關最新公告為準。建議申請前向當地諮詢窗口確認。</p>
+                    <p class="copyright">&copy; 2024 老宅三叉路. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // FAQ 互動
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
+                const icon = item.querySelector('i');
+                if (icon.classList.contains('fa-chevron-down')) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
