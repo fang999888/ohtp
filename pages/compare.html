@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>方案比較｜老宅三叉路</title>
+    <meta name="description" content="一次比較老宅修繕延壽、原址改建(危老)、都更重建三種方案的核心差異，包含補助、獎勵、門檻、時間、稅賦等，幫助您做出最佳選擇。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        /* 頁面專屬樣式 */
+        .page-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            color: var(--primary-color);
+            border-left: 5px solid var(--dark-gray);
+            padding-left: 20px;
+        }
+        .comparison-intro {
+            background-color: var(--light-gray);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        .comparison-table-wrapper {
+            overflow-x: auto;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            min-width: 800px;
+        }
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        .comparison-table th:first-child {
+            border-top-left-radius: 10px;
+        }
+        .comparison-table th:last-child {
+            border-top-right-radius: 10px;
+        }
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--medium-gray);
+            vertical-align: top;
+        }
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        .comparison-table .category-cell {
+            font-weight: 500;
+            background-color: #f0f3f5;
+            width: 150px;
+            color: var(--primary-color);
+        }
+        .path-a {
+            border-left: 4px solid var(--path-a-color);
+        }
+        .path-b {
+            border-left: 4px solid var(--path-b-color);
+        }
+        .path-c {
+            border-left: 4px solid var(--path-c-color);
+        }
+        .path-label {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        .label-a {
+            background-color: var(--path-a-color);
+        }
+        .label-b {
+            background-color: var(--path-b-color);
+        }
+        .label-c {
+            background-color: var(--path-c-color);
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            background-color: #e9ecef;
+            color: #495057;
+            margin-left: 5px;
+        }
+        .highlight-number {
+            font-weight: 700;
+            color: #e67e22;
+        }
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 30px 0;
+            font-size: 0.95rem;
+        }
+        .guide-section {
+            background-color: #e8f4fd;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 40px 0;
+        }
+        .guide-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .guide-item {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-top: 4px solid;
+        }
+        .guide-item.a { border-top-color: var(--path-a-color); }
+        .guide-item.b { border-top-color: var(--path-b-color); }
+        .guide-item.c { border-top-color: var(--path-c-color); }
+        .guide-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .guide-item p {
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+        }
+        .guide-item .btn-small {
+            background: transparent;
+            border: 1px solid;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+        .guide-item.a .btn-small {
+            border-color: var(--path-a-color);
+            color: var(--path-a-color);
+        }
+        .guide-item.a .btn-small:hover {
+            background: var(--path-a-color);
+            color: white;
+        }
+        .guide-item.b .btn-small {
+            border-color: var(--path-b-color);
+            color: var(--path-b-color);
+        }
+        .guide-item.b .btn-small:hover {
+            background: var(--path-b-color);
+            color: white;
+        }
+        .guide-item.c .btn-small {
+            border-color: var(--path-c-color);
+            color: var(--path-c-color);
+        }
+        .guide-item.c .btn-small:hover {
+            background: var(--path-c-color);
+            color: white;
+        }
+        .faq-mini {
+            margin: 30px 0;
+        }
+        .faq-q {
+            font-weight: 500;
+            margin: 15px 0 5px;
+        }
+        .faq-a {
+            color: var(--dark-gray);
+            padding-left: 20px;
+            border-left: 2px solid var(--medium-gray);
+        }
+    </style>
+</head>
+<body>
+    <!-- 導航列 (與首頁相同) -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="../index.html" class="logo">
+                    <i class="fas fa-home"></i> 老宅三叉路
+                </a>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="../index.html">首頁</a></li>
+                <li><a href="repair.html">修繕延壽</a></li>
+                <li><a href="renew.html">原址改建</a></li>
+                <li><a href="urban-renewal.html">都更重建</a></li>
+                <li><a href="compare.html" class="active">方案比較</a></li>
+                <li><a href="contact.html">諮詢窗口</a></li>
+            </ul>
+            <div class="navbar-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 頁面標頭 -->
+    <section class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-balance-scale"></i> 方案比較</h1>
+            <p>修繕延壽・原址改建・都更重建 — 並排對照，一次看懂差異</p>
+        </div>
+    </section>
+
+    <main>
+        <div class="container">
+            <!-- 介紹 -->
+            <div class="comparison-intro">
+                <i class="fas fa-info-circle" style="font-size: 2rem; color: var(--secondary-color); margin-bottom: 15px;"></i>
+                <p>三條路沒有絕對的好壞，端看您的房屋條件、整合狀況與未來規劃。下表將三種方案的核心項目並列比較，幫助您快速掌握關鍵差異。詳細說明請點擊各方案名稱進入專頁。</p>
+            </div>
+
+            <!-- 比較表格 -->
+            <h2 class="section-title">三叉路並排比較</h2>
+            <div class="comparison-table-wrapper">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>比較項目</th>
+                            <th><span class="path-label label-a">路徑A：修繕延壽</span></th>
+                            <th><span class="path-label label-b">路徑B：原址改建(危老)</span></th>
+                            <th><span class="path-label label-c">路徑C：都更重建</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 核心政策 -->
+                        <tr>
+                            <td class="category-cell">核心政策</td>
+                            <td class="path-a">老宅延壽計畫<br><span class="badge">內政部營建署</span></td>
+                            <td class="path-b">危老條例<br><span class="badge">內政部</span></td>
+                            <td class="path-c">都市更新條例<br><span class="badge">內政部</span></td>
+                        </tr>
+                        <!-- 適用對象 -->
+                        <tr>
+                            <td class="category-cell">適用對象</td>
+                            <td class="path-a">30年以上老宅，<br>公寓(4-6層)或透天(6層以下)</td>
+                            <td class="path-b">30年以上或結構危險，<br>無最小面積限制</td>
+                            <td class="path-c">位於更新地區或符合更新單元<br>通常有最小面積限制(如北市1000㎡)</td>
+                        </tr>
+                        <!-- 同意門檻 -->
+                        <tr>
+                            <td class="category-cell">同意門檻</td>
+                            <td class="path-a">公寓：過半數<br>透天：100%</td>
+                            <td class="path-b">100%所有權人同意</td>
+                            <td class="path-c">更新地區：3/4<br>自行劃定：4/5</td>
+                        </tr>
+                        <!-- 補助/獎勵上限 -->
+                        <tr>
+                            <td class="category-cell">補助/獎勵</td>
+                            <td class="path-a">最高補助 <strong>960萬元/棟</strong><br>室內每戶最高20~30萬</td>
+                            <td class="path-b">容積獎勵最高 <strong>1.4倍</strong><br>基準容積</td>
+                            <td class="path-c">容積獎勵最高 <strong>1.5倍</strong><br>基準容積</td>
+                        </tr>
+                        <!-- 稅賦優惠 -->
+                        <tr>
+                            <td class="category-cell">稅賦優惠</td>
+                            <td class="path-a">無直接稅賦優惠<br>(修繕後房屋稅可能調整)</td>
+                            <td class="path-b">地價稅(重建期間免徵/減半)<br>房屋稅減半2年，自然人延長至10年</td>
+                            <td class="path-c">地價稅、房屋稅減半2年(自然人延長至10年)<br>土增稅、契稅減徵40%</td>
+                        </tr>
+                        <!-- 時間成本 -->
+                        <tr>
+                            <td class="category-cell">時間成本</td>
+                            <td class="path-a">約3~6個月(施工)<br>可續住，部分施工需配合</td>
+                            <td class="path-b">約1.5~3年(含審查+施工)<br>需在外租屋</td>
+                            <td class="path-c">約3~8年(含審議+施工)<br>需在外租屋</td>
+                        </tr>
+                        <!-- 居住安排 -->
+                        <tr>
+                            <td class="category-cell">居住安排</td>
+                            <td class="path-a">可繼續住在屋內</td>
+                            <td class="path-b">需另覓住所</td>
+                            <td class="path-c">需另覓住所</td>
+                        </tr>
+                        <!-- 整合難度 -->
+                        <tr>
+                            <td class="category-cell">整合難度</td>
+                            <td class="path-a">公寓需協調多數<br>透天較簡單</td>
+                            <td class="path-b">需100%同意，整合難度高</td>
+                            <td class="path-c">同意門檻較低，但程序複雜</td>
+                        </tr>
+                        <!-- 財務負擔 -->
+                        <tr>
+                            <td class="category-cell">財務負擔</td>
+                            <td class="path-a">政府補助部分經費<br>住戶仍需自籌差額</td>
+                            <td class="path-b">可自主重建或合建<br>融資管道多</td>
+                            <td class="path-c">通常由實施者負擔<br>地主分回房地</td>
+                        </tr>
+                        <!-- 適合情境 -->
+                        <tr>
+                            <td class="category-cell">適合情境</td>
+                            <td class="path-a">結構安全、不想搬家、預算有限、希望快速改善居住品質</td>
+                            <td class="path-b">小基地、住戶單純、結構危險、想要原地重建並增值</td>
+                            <td class="path-c">大面積、多所有權人、願意等待、希望整體環境提升</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 補充說明 -->
+            <div class="note">
+                <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i>
+                <strong>請注意：</strong> 本表為重點摘要，實際申請條件、補助金額、獎勵計算以各主管機關最新公告為準。三種方案只能擇一進行，建議先釐清長期規劃再決定。
+            </div>
+
+            <!-- 快速選擇指南 -->
+            <div class="guide-section">
+                <h3><i class="fas fa-compass"></i> 快速選擇指南</h3>
+                <p>您可以根據以下條件，初步判斷哪條路徑較適合您：</p>
+                <div class="guide-grid">
+                    <div class="guide-item a">
+                        <h4><i class="fas fa-tools" style="color: var(--path-a-color);"></i> 優先考慮修繕延壽</h4>
+                        <p>✓ 房屋結構安全無虞<br>✓ 不想搬家，希望短期內改善<br>✓ 住戶較多，整合不易<br>✓ 預算有限，想先申請補助</p>
+                        <a href="repair.html" class="btn-small">了解更多</a>
+                    </div>
+                    <div class="guide-item b">
+                        <h4><i class="fas fa-hard-hat" style="color: var(--path-b-color);"></i> 優先考慮原址改建(危老)</h4>
+                        <p>✓ 結構危險或屋齡老舊<br>✓ 基地面積小，無法達都更門檻<br>✓ 所有權人少(如獨棟透天)<br>✓ 希望快速重建、取得容獎</p>
+                        <a href="renew.html" class="btn-small">了解更多</a>
+                    </div>
+                    <div class="guide-item c">
+                        <h4><i class="fas fa-city" style="color: var(--path-c-color);"></i> 優先考慮都更重建</h4>
+                        <p>✓ 基地面積大(通常300坪以上)<br>✓ 位於政府劃定更新地區<br>✓ 願意等待較長時間換取整體環境提升<br>✓ 希望獲得更全面的稅賦優惠</p>
+                        <a href="urban-renewal.html" class="btn-small">了解更多</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 常見決策FAQ -->
+            <h2 class="section-title">常見決策疑問</h2>
+            <div class="faq-mini">
+                <div class="faq-q"><i class="fas fa-question-circle" style="color: var(--secondary-color);"></i> Q：可以同時申請修繕補助又辦危老嗎？</div>
+                <div class="faq-a">A：不可以，三者只能擇一。若已申請修繕補助，未來若要重建可能需返還補助款，建議先確認長期規劃。</div>
+
+                <div class="faq-q"><i class="fas fa-question-circle" style="color: var(--secondary-color);"></i> Q：危老和都更哪個拿到的獎勵比較多？</div>
+                <div class="faq-a">A：都更容積獎勵上限1.5倍高於危老的1.4倍，且稅賦優惠較多元；但危老程序快，整合容易。需依基地條件評估。</div>
+
+                <div class="faq-q"><i class="fas fa-question-circle" style="color: var(--secondary-color);"></i> Q：我家是公寓，但鄰居都不願意都更，可以先修繕嗎？</div>
+                <div class="faq-a">A：可以，公寓修繕僅需過半數同意，比都更/危老容易。可先申請修繕補助改善公共空間，未來整合成功後再拆除重建。</div>
+
+                <div class="faq-q"><i class="fas fa-question-circle" style="color: var(--secondary-color);"></i> Q：修繕後房屋稅會變貴嗎？</div>
+                <div class="faq-a">A：修繕若涉及增加房屋價值（如電梯增設），房屋稅可能小幅調漲，但相較於居住安全與品質提升，通常仍值得。</div>
+            </div>
+
+            <!-- 下一步引導 -->
+            <div style="text-align: center; margin: 50px 0;">
+                <p style="font-size: 1.2rem;">還是不確定哪條路最適合您？</p>
+                <a href="contact.html" class="btn btn-primary btn-large" style="margin-top: 15px;">
+                    <i class="fas fa-phone-alt"></i> 聯繫諮詢窗口
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- 頁尾 (與首頁相同) -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h4><i class="fas fa-home"></i> 老宅三叉路</h4>
+                    <p>整合政府最新法規與補助資訊，幫助民眾一次看懂老宅修繕、改建、都更三種選擇。資料來源皆為政府公開資訊，更新至2024年。</p>
+                </div>
+                <div class="footer-links">
+                    <h4>快速連結</h4>
+                    <ul>
+                        <li><a href="repair.html">修繕延壽</a></li>
+                        <li><a href="renew.html">原址改建</a></li>
+                        <li><a href="urban-renewal.html">都更重建</a></li>
+                        <li><a href="compare.html">方案比較</a></li>
+                        <li><a href="contact.html">諮詢窗口</a></li>
+                    </ul>
+                </div>
+                <div class="footer-disclaimer">
+                    <h4>免責聲明</h4>
+                    <p>本網站僅整理公開資訊，實際申請條件、補助金額以各主管機關最新公告為準。建議申請前向當地諮詢窗口確認。</p>
+                    <p class="copyright">&copy; 2024 老宅三叉路. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>
