@@ -2,7 +2,7 @@ services:
   - type: web
     name: old-house-triple-path
     runtime: static
-    repo: https://github.com/fang999888/ohtp/tree/main
+    repo: https://github.com/fang999888/ohtp
     branch: main
     buildCommand: echo "Static site, no build needed"
     staticPublishPath: .
