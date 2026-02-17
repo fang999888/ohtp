@@ -97,3 +97,32 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+document.getElementById('btn-lookup').addEventListener('click', async () => {
+    const address = document.getElementById('address').value;
+    const display = document.getElementById('zoning-display');
+    
+    if (!address) return alert("請輸入地址");
+
+    display.innerText = "查詢中...";
+
+    try {
+        // 注意：這裡的 URL 需換成你 Render 後端的網址
+        const response = await fetch('https://ohtp.onrender.com/get-zoning', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ address: address })
+        });
+        
+        const data = await response.json();
+        
+        // 自動更新表單與顯示資訊
+        display.innerHTML = `<i class="fas fa-info-circle"></i> 此地號屬 <strong>${data.zoning}</strong>，基準容積率為 <strong>${data.base_far}%</strong>`;
+        
+        // 若有縣市欄位則自動連動
+        if(data.city_code) document.getElementById('city').value = data.city_code;
+        
+    } catch (error) {
+        display.innerText = "查詢失敗，請手動輸入。";
+        console.error("Lookup error:", error);
+    }
+});
