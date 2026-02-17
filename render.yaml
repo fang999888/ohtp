@@ -1,11 +1,11 @@
 services:
-  - type: web
+  - type: static                 # ⬅️ 這裡改為 static
     name: ohtp
     runtime: static
     repo: https://github.com/fang999888/ohtp
     branch: main
-    buildCommand: echo "Static site, no build needed"
-    staticPublishPath: .
+    buildCommand: echo "Static site, no build needed"   # 可留空，或保留這行
+    staticPublishPath: .         # ⬅️ 發布根目錄
     pullRequestPreviewsEnabled: true
     headers:
       - path: /*
