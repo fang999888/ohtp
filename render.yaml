@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: old-house-triple-path
+    name: ohtp
     runtime: static
     repo: https://github.com/fang999888/ohtp
     branch: main
