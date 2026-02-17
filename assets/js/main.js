@@ -1,5 +1,8 @@
-// 行動版選單切換
+// 等待 DOM 載入完成
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('✅ main.js 已載入');
+
+    // 行動版選單切換
     const mobileMenuBtn = document.getElementById('mobile-menu');
     const navbarMenu = document.querySelector('.navbar-menu');
     
@@ -12,13 +15,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // 快速查詢表單處理
     const quickForm = document.getElementById('quick-check-form');
     if (quickForm) {
+        console.log('✅ 找到表單元素');
+        
         quickForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            e.preventDefault();  // 阻止表單重新整理頁面
+            console.log('✅ 表單送出事件觸發');
             
             // 取得表單資料
             const houseAge = document.getElementById('house-age').value;
             const floors = document.getElementById('floors').value;
             const city = document.getElementById('city').value;
+            
+            console.log('表單資料：', { houseAge, floors, city });
             
             // 基本驗證
             if (!houseAge || !floors || !city) {
@@ -34,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 recommendedPath = '可能需要等待，目前政策主要針對30年以上老宅';
                 reason = '您的房屋屋齡未滿30年，目前老宅延壽計畫、危老條例都需屋齡30年以上。建議持續關注未來政策。';
             } else {
-                // 簡單的判斷邏輯
                 const structure = document.getElementById('structure').value;
                 const households = document.getElementById('households').value;
                 
@@ -60,10 +67,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
-            // 顯示結果（可以改用更漂亮的 modal）
+            // 顯示結果
             alert(`初步分析結果：\n\n建議優先考慮：${recommendedPath}\n\n原因：${reason}\n\n此為初步判斷，實際適用方案請諮詢當地政府窗口。`);
             
-            // 未來可優化：跳轉到比較頁面並帶入參數
+            // 可選：跳轉到比較頁面並帶入參數（未來優化）
             // window.location.href = `pages/compare.html?age=${houseAge}&floors=${floors}&city=${city}`;
         });
         
@@ -74,6 +81,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 quickForm.reset();
             });
         }
+    } else {
+        console.error('❌ 找不到表單元素 #quick-check-form');
     }
     
     // 設定當前導航項目的 active 狀態
