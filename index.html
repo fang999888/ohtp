@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老宅三叉路 | 修繕・改建・都更 一次看懂</title>
+    <meta name="description" content="整合老宅延壽補助、危老改建、都市更新三大政策，幫助您一次看懂老宅三種選擇的條件、補助與申請方式。">
+    <!-- 引用 Google Fonts 提升閱讀體驗 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 圖示庫 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- 自訂 CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- 導航列 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-home"></i> 老宅三叉路
+                </a>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="index.html" class="active">首頁</a></li>
+                <li><a href="pages/repair.html">修繕延壽</a></li>
+                <li><a href="pages/renew.html">原址改建</a></li>
+                <li><a href="pages/urban-renewal.html">都更重建</a></li>
+                <li><a href="pages/compare.html">方案比較</a></li>
+                <li><a href="pages/contact.html">諮詢窗口</a></li>
+            </ul>
+            <div class="navbar-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 首頁主要內容 -->
+    <main>
+        <!-- 英雄區塊 (Hero Section) -->
+        <section class="hero">
+            <div class="container">
+                <h1 class="hero-title">老宅三叉路：一次看懂三種選擇</h1>
+                <p class="hero-subtitle">修繕延壽、原址改建、都更重建 — 整合政府最新法規與補助，幫您找出最適合的路</p>
+                
+                <!-- 快速查詢表單 -->
+                <div class="quick-form">
+                    <h2><i class="fas fa-search"></i> 快速查詢：您的房屋適用哪條路？</h2>
+                    <form id="quick-check-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="house-age">屋齡 <span class="required">*</span></label>
+                                <select id="house-age" name="house-age" required>
+                                    <option value="">請選擇</option>
+                                    <option value="under30">未滿30年</option>
+                                    <option value="30-40">30-40年</option>
+                                    <option value="over40">40年以上</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="floors">樓層數 <span class="required">*</span></label>
+                                <select id="floors" name="floors" required>
+                                    <option value="">請選擇</option>
+                                    <option value="1-3">1-3層</option>
+                                    <option value="4-5">4-5層</option>
+                                    <option value="6-7">6-7層</option>
+                                    <option value="over8">8層以上</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="structure">結構狀況</label>
+                                <select id="structure" name="structure">
+                                    <option value="">請選擇</option>
+                                    <option value="good">良好，無明顯損壞</option>
+                                    <option value="minor">輕微損壞（如裂縫、漏水）</option>
+                                    <option value="major">明顯損壞（如樑柱裂縫）</option>
+                                    <option value="danger">疑似危樓/結構安全有疑慮</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="households">住戶數</label>
+                                <select id="households" name="households">
+                                    <option value="">請選擇</option>
+                                    <option value="1">單一住戶</option>
+                                    <option value="2-5">2-5戶</option>
+                                    <option value="6-10">6-10戶</option>
+                                    <option value="over10">10戶以上</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="city">所在縣市 <span class="required">*</span></label>
+                                <select id="city" name="city" required>
+                                    <option value="">請選擇</option>
+                                    <option value="taipei">台北市</option>
+                                    <option value="newtaipei">新北市</option>
+                                    <option value="taoyuan">桃園市</option>
+                                    <option value="taichung">台中市</option>
+                                    <option value="tainan">台南市</option>
+                                    <option value="kaohsiung">高雄市</option>
+                                    <option value="other">其他縣市</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="purpose">主要查詢目的</label>
+                                <select id="purpose" name="purpose">
+                                    <option value="">請選擇</option>
+                                    <option value="self">自己/家人居住</option>
+                                    <option value="client">幫客戶諮詢</option>
+                                    <option value="learn">單純了解政策</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-large">
+                                <i class="fas fa-calculator"></i> 開始分析
+                            </button>
+                            <button type="reset" class="btn btn-secondary">
+                                <i class="fas fa-undo"></i> 清除
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 三叉路快速導覽 -->
+        <section class="paths-section">
+            <div class="container">
+                <h2 class="section-title">三條路，三種選擇</h2>
+                <p class="section-subtitle">根據您的需求，快速了解各方案的核心差異</p>
+                
+                <div class="paths-grid">
+                    <!-- 路徑A：修繕延壽 -->
+                    <div class="path-card">
+                        <div class="path-header path-a">
+                            <i class="fas fa-tools"></i>
+                            <h3>路徑A：修繕延壽</h3>
+                        </div>
+                        <div class="path-body">
+                            <p class="path-desc">不須搬家，補助修繕公共空間與室內，延長老宅使用年限。</p>
+                            <div class="path-highlight">
+                                <span class="label">最高補助</span>
+                                <span class="value">960萬元/棟</span>
+                            </div>
+                            <ul class="path-features">
+                                <li><i class="fas fa-check-circle"></i> 可續住，施工期短</li>
+                                <li><i class="fas fa-check-circle"></i> 公寓需過半數同意</li>
+                                <li><i class="fas fa-check-circle"></i> 屋齡30年以上</li>
+                            </ul>
+                            <a href="pages/repair.html" class="btn btn-outline">詳細說明 <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- 路徑B：原址改建 -->
+                    <div class="path-card">
+                        <div class="path-header path-b">
+                            <i class="fas fa-hard-hat"></i>
+                            <h3>路徑B：原址改建</h3>
+                        </div>
+                        <div class="path-body">
+                            <p class="path-desc">危老條例，拆除重建，容積獎勵最高1.4倍，原地增值。</p>
+                            <div class="path-highlight">
+                                <span class="label">容積獎勵</span>
+                                <span class="value">最高1.4倍</span>
+                            </div>
+                            <ul class="path-features">
+                                <li><i class="fas fa-check-circle"></i> 需100%住戶同意</li>
+                                <li><i class="fas fa-check-circle"></i> 2-3年完工</li>
+                                <li><i class="fas fa-check-circle"></i> 稅賦減免2-10年</li>
+                            </ul>
+                            <a href="pages/renew.html" class="btn btn-outline">詳細說明 <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- 路徑C：都更重建 -->
+                    <div class="path-card">
+                        <div class="path-header path-c">
+                            <i class="fas fa-city"></i>
+                            <h3>路徑C：都更重建</h3>
+                        </div>
+                        <div class="path-body">
+                            <p class="path-desc">大面積區域重整，容積獎勵最高1.5倍，整體環境提升。</p>
+                            <div class="path-highlight">
+                                <span class="label">容積獎勵</span>
+                                <span class="value">最高1.5倍</span>
+                            </div>
+                            <ul class="path-features">
+                                <li><i class="fas fa-check-circle"></i> 需90%以上同意</li>
+                                <li><i class="fas fa-check-circle"></i> 3-5年以上</li>
+                                <li><i class="fas fa-check-circle"></i> 多元稅賦減免</li>
+                            </ul>
+                            <a href="pages/urban-renewal.html" class="btn btn-outline">詳細說明 <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 最新政策資訊 -->
+        <section class="news-section">
+            <div class="container">
+                <h2 class="section-title">最新政策與公告</h2>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <div class="news-date">2025-2027</div>
+                        <h4>老宅延壽計畫正式啟動</h4>
+                        <p>內政部編列50億元，補助30年以上老宅修繕，申請至116年12月31日止。</p>
+                        <a href="#" class="news-link">查看詳情 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-date">2024</div>
+                        <h4>危老時程獎勵逐年遞減</h4>
+                        <p>2024年5月後申請，時程獎勵降至6%，2025年5月後降至4%，把握時間！</p>
+                        <a href="#" class="news-link">查看詳情 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-date">2023</div>
+                        <h4>都更條例修正三讀通過</h4>
+                        <p>擴大容積獎勵適用範圍，增加稅賦優惠項目，加速都市更新進程。</p>
+                        <a href="#" class="news-link">查看詳情 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 目標用戶說明 -->
+        <section class="target-users">
+            <div class="container">
+                <h2 class="section-title">這個網站為誰而設？</h2>
+                <div class="users-grid">
+                    <div class="user-card">
+                        <i class="fas fa-user-friends"></i>
+                        <h3>幫長輩詢問的年輕人</h3>
+                        <p>爸媽的老宅想處理，但政策好複雜？輸入基本資料，快速看懂「我家可以申請什麼補助？哪條路最適合？」</p>
+                    </div>
+                    <div class="user-card">
+                        <i class="fas fa-briefcase"></i>
+                        <h3>顧問公司/從業人員</h3>
+                        <p>接觸客戶時快速判斷可行性，查詢特定地址的適用方案、下載法規條文、試算獎勵額度。</p>
+                    </div>
+                    <div class="user-card">
+                        <i class="fas fa-landmark"></i>
+                        <h3>公務員/里長</h3>
+                        <p>協助里民了解政策，提供正確資訊窗口，加速老宅再生進度。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 頁尾 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h4><i class="fas fa-home"></i> 老宅三叉路</h4>
+                    <p>整合政府最新法規與補助資訊，幫助民眾一次看懂老宅修繕、改建、都更三種選擇。資料來源皆為政府公開資訊，更新至2024年。</p>
+                </div>
+                <div class="footer-links">
+                    <h4>快速連結</h4>
+                    <ul>
+                        <li><a href="pages/repair.html">修繕延壽</a></li>
+                        <li><a href="pages/renew.html">原址改建</a></li>
+                        <li><a href="pages/urban-renewal.html">都更重建</a></li>
+                        <li><a href="pages/compare.html">方案比較</a></li>
+                        <li><a href="pages/contact.html">諮詢窗口</a></li>
+                    </ul>
+                </div>
+                <div class="footer-disclaimer">
+                    <h4>免責聲明</h4>
+                    <p>本網站僅整理公開資訊，實際申請條件、補助金額以各主管機關最新公告為準。建議申請前向當地諮詢窗口確認。</p>
+                    <p class="copyright">&copy; 2024 老宅三叉路. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
