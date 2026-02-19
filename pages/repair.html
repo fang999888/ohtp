@@ -365,7 +365,430 @@
             <p><i class="fas fa-phone-alt"></i> 洽詢專線：<strong>02-7701-9919</strong>（內政部營建署老宅延壽計畫辦公室）</p>
         </div>
     </div>
+</section><!-- 補貼加值計算機 -->
+<section>
+    <h2 class="section-title">🧮 補貼加值計算機</h2>
+    <div class="info-card" style="border-left-color: #9b59b6; background: linear-gradient(to bottom, #ffffff, #f8f9ff);">
+        <p style="font-size: 1.1rem; margin-bottom: 20px;">輸入您的基本資料，系統自動試算「老宅延壽基礎補助 + 經濟部綠能加值 + 衛福部長照加值」總額度</p>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+            <!-- 左側：輸入表單 -->
+            <div style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px; font-size: 1.3rem;"><i class="fas fa-edit"></i> 請填寫房屋狀況</h3>
+                
+                <form id="subsidy-calculator-form">
+                    <!-- 基本資料 -->
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 500;">屋齡 <span style="color: #e74c3c;">*</span></label>
+                        <select id="calc-house-age" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="">請選擇</option>
+                            <option value="under30">未滿30年</option>
+                            <option value="30-40">30-40年</option>
+                            <option value="over40">40年以上</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 500;">房屋類型 <span style="color: #e74c3c;">*</span></label>
+                        <select id="calc-house-type" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="">請選擇</option>
+                            <option value="apt">公寓 (4-6層樓)</option>
+                            <option value="townhouse">透天 (6層樓以下)</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 500;">所在縣市</label>
+                        <select id="calc-city" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <option value="">請選擇</option>
+                            <option value="taipei">台北市</option>
+                            <option value="newtaipei">新北市</option>
+                            <option value="taoyuan">桃園市</option>
+                            <option value="taichung">台中市</option>
+                            <option value="tainan">台南市</option>
+                            <option value="kaohsiung">高雄市</option>
+                            <option value="other">其他縣市</option>
+                        </select>
+                        <small style="color: #7f8c8d;">(部分縣市有加碼補助)</small>
+                    </div>
+                    
+                    <!-- 家庭狀況 -->
+                    <div style="margin: 20px 0; border-top: 1px dashed #ddd;"></div>
+                    <h4 style="margin-bottom: 15px; color: #2c3e50;">👨‍👩‍👧‍👦 家庭狀況</h4>
+                    
+                    <div style="margin-bottom: 12px;">
+                        <label style="display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" id="calc-elderly"> 
+                            <span>家中有65歲以上長者</span>
+                        </label>
+                    </div>
+                    
+                    <div style="margin-bottom: 12px;">
+                        <label style="display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" id="calc-lowincome"> 
+                            <span>低收入戶/中低收入戶</span>
+                        </label>
+                    </div>
+                    
+                    <div style="margin-bottom: 12px;">
+                        <label style="display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" id="calc-longterm"> 
+                            <span>長照需要等級第2級以上</span>
+                        </label>
+                    </div>
+                    
+                    <!-- 加值項目 -->
+                    <div style="margin: 20px 0; border-top: 1px dashed #ddd;"></div>
+                    <h4 style="margin-bottom: 15px; color: #2c3e50;">⚡ 加值項目 (可複選)</h4>
+                    
+                    <div style="margin-bottom: 12px;">
+                        <label style="display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" id="calc-solar"> 
+                            <span>想裝太陽能板 <small style="color: #7f8c8d;">(屋頂面積1,000平方公尺以下)</small></span>
+                        </label>
+                    </div>
+                    
+                    <div style="margin-bottom: 12px;">
+                        <label style="display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" id="calc-appliance"> 
+                            <span>今年想買一級能效冷氣/冰箱 <small style="color: #7f8c8d;">(每台)</small></span>
+                        </label>
+                        <div style="margin-left: 25px; margin-top: 5px;">
+                            <input type="number" id="calc-appliance-qty" min="0" max="10" value="1" style="width: 80px; padding: 5px; border: 1px solid #ddd; border-radius: 5px;"> 台
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 25px;">
+                        <button type="button" id="calc-btn" style="background: #9b59b6; color: white; border: none; padding: 15px 25px; border-radius: 50px; font-size: 1.1rem; font-weight: 500; cursor: pointer; width: 100%;">
+                            <i class="fas fa-calculator"></i> 立即試算總補助
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- 右側：試算結果 -->
+            <div style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
+                <h3 style="color: var(--primary-color); margin-bottom: 20px; font-size: 1.3rem;"><i class="fas fa-chart-pie"></i> 您的補助總額</h3>
+                
+                <div id="calc-result-placeholder" style="text-align: center; padding: 40px 0; color: #95a5a6;">
+                    <i class="fas fa-hand-point-left" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
+                    <p>請填寫左側資料後<br>點擊「立即試算」</p>
+                </div>
+                
+                <div id="calc-result-content" style="display: none;">
+                    <!-- 基礎補助 -->
+                    <div style="margin-bottom: 20px; padding: 15px; background: #e8f5e9; border-radius: 8px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span><i class="fas fa-home" style="color: #27ae60;"></i> 老宅延壽基礎補助</span>
+                            <span id="base-amount" style="font-size: 1.5rem; font-weight: 700; color: #27ae60;">0</span>
+                        </div>
+                        <div style="font-size: 0.9rem; color: #2c3e50; margin-top: 5px;" id="base-desc"></div>
+                    </div>
+                    
+                    <!-- 加值補助1：太陽光電 -->
+                    <div id="solar-row" style="display: none; margin-bottom: 15px; padding: 12px; background: #fff3e0; border-radius: 8px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span><i class="fas fa-solar-panel" style="color: #f39c12;"></i> 太陽光電補助</span>
+                            <span id="solar-amount" style="font-weight: 700; color: #e67e22;">0</span>
+                        </div>
+                    </div>
+                    
+                    <!-- 加值補助2：節能家電 -->
+                    <div id="appliance-row" style="display: none; margin-bottom: 15px; padding: 12px; background: #e1f0fa; border-radius: 8px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span><i class="fas fa-wind" style="color: #3498db;"></i> 節能家電補助</span>
+                            <span id="appliance-amount" style="font-weight: 700; color: #2980b9;">0</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: #7f8c8d;" id="appliance-desc"></div>
+                    </div>
+                    
+                    <!-- 加值補助3：長照輔具 -->
+                    <div id="longterm-row" style="display: none; margin-bottom: 20px; padding: 12px; background: #f9e1e0; border-radius: 8px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span><i class="fas fa-heartbeat" style="color: #e74c3c;"></i> 長照輔具/無障礙</span>
+                            <span id="longterm-amount" style="font-weight: 700; color: #c0392b;">0</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: #7f8c8d;" id="longterm-desc"></div>
+                    </div>
+                    
+                    <!-- 總計 -->
+                    <div style="margin-top: 20px; padding: 15px; background: #2c3e50; border-radius: 8px; color: white;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 1.1rem;"><i class="fas fa-gem"></i> 總補助額度</span>
+                            <span id="total-amount" style="font-size: 2rem; font-weight: 700;">0</span>
+                        </div>
+                        <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 5px;" id="total-desc"></div>
+                    </div>
+                    
+                    <!-- 注意事項 -->
+                    <div style="margin-top: 15px; font-size: 0.85rem; color: #7f8c8d; border-top: 1px solid #eee; padding-top: 10px;">
+                        <i class="fas fa-info-circle"></i> 此為預估額度，實際補助以各主管機關審核為準。老宅延壽基礎補助以「每戶」室內補助計算，公共空間另計。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
+<!-- 計算機 JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const calcBtn = document.getElementById('calc-btn');
+    
+    calcBtn.addEventListener('click', function() {
+        // 取得輸入值
+        const houseAge = document.getElementById('calc-house-age').value;
+        const houseType = document.getElementById('calc-house-type').value;
+        const hasElderly = document.getElementById('calc-elderly').checked;
+        const hasLowIncome = document.getElementById('calc-lowincome').checked;
+        const hasLongTerm = document.getElementById('calc-longterm').checked;
+        const hasSolar = document.getElementById('calc-solar').checked;
+        const hasAppliance = document.getElementById('calc-appliance').checked;
+        const applianceQty = parseInt(document.getElementById('calc-appliance-qty').value) || 0;
+        
+        // 基本驗證
+        if (!houseAge || !houseType) {
+            alert('請填寫屋齡與房屋類型');
+            return;
+        }
+        
+        if (houseAge === 'under30') {
+            alert('您的屋齡未滿30年，目前老宅延壽計畫需屋齡30年以上才能申請。但您仍可參考經濟部與衛福部補助。');
+            // 繼續計算其他補助
+        }
+        
+        // --- 老宅延壽基礎補助計算 (室內每戶) ---
+        let baseAmount = 0;
+        let baseDesc = '';
+        
+        if (houseAge !== 'under30') {
+            // 判斷是否為高齡弱勢戶 (65歲以上長者 OR 低收/中低收 OR 長照2級以上)
+            const isVulnerable = hasElderly || hasLowIncome || hasLongTerm;
+            
+            if (isVulnerable) {
+                baseAmount = 300000; // 30萬元
+                baseDesc = '高齡弱勢戶 每戶最高30萬元';
+            } else {
+                baseAmount = 200000; // 20萬元
+                baseDesc = '一般戶 每戶最高20萬元';
+            }
+        } else {
+            baseDesc = '屋齡未滿30年，暫不適用';
+            baseAmount = 0;
+        }
+        
+        // --- 太陽光電補助 ---
+        let solarAmount = 0;
+        if (hasSolar) {
+            solarAmount = 300000; // 最高30萬元
+        }
+        
+        // --- 節能家電補助 ---
+        let applianceAmount = 0;
+        if (hasAppliance && applianceQty > 0) {
+            applianceAmount = applianceQty * 3000; // 每台3000元
+        }
+        
+        // --- 長照輔具補助 ---
+        let longtermAmount = 0;
+        let longtermDesc = '';
+        
+        if (hasLongTerm) {
+            // 長照2級以上，7月後新制為每3年6萬元(含居家無障礙2萬)
+            const currentDate = new Date();
+            const july2026 = new Date(2026, 6, 1); // 2026年7月1日
+            
+            if (currentDate >= july2026) {
+                longtermAmount = 60000; // 6萬元 (新制)
+                longtermDesc = '長照新制 每3年6萬元 (含無障礙2萬)';
+            } else {
+                longtermAmount = 40000; // 4萬元 (現行)
+                longtermDesc = '現行長照補助 每3年4萬元 (7月後將提高至6萬)';
+            }
+        }
+        
+        // --- 總計 ---
+        const totalAmount = baseAmount + solarAmount + applianceAmount + longtermAmount;
+        
+        // --- 更新UI ---
+        document.getElementById('calc-result-placeholder').style.display = 'none';
+        document.getElementById('calc-result-content').style.display = 'block';
+        
+        // 更新基礎補助
+        document.getElementById('base-amount').innerText = '$' + baseAmount.toLocaleString();
+        document.getElementById('base-desc').innerText = baseDesc;
+        
+        // 太陽光電
+        if (solarAmount > 0) {
+            document.getElementById('solar-row').style.display = 'block';
+            document.getElementById('solar-amount').innerText = '$' + solarAmount.toLocaleString();
+        } else {
+            document.getElementById('solar-row').style.display = 'none';
+        }
+        
+        // 節能家電
+        if (applianceAmount > 0) {
+            document.getElementById('appliance-row').style.display = 'block';
+            document.getElementById('appliance-amount').innerText = '$' + applianceAmount.toLocaleString();
+            document.getElementById('appliance-desc').innerText = applianceQty + '台一級能效家電';
+        } else {
+            document.getElementById('appliance-row').style.display = 'none';
+        }
+        
+        // 長照輔具
+        if (longtermAmount > 0) {
+            document.getElementById('longterm-row').style.display = 'block';
+            document.getElementById('longterm-amount').innerText = '$' + longtermAmount.toLocaleString();
+            document.getElementById('longterm-desc').innerText = longtermDesc;
+        } else {
+            document.getElementById('longterm-row').style.display = 'none';
+        }
+        
+        // 總計
+        document.getElementById('total-amount').innerText = '$' + totalAmount.toLocaleString();
+        
+        let totalDesc = '';
+        if (houseAge === 'under30') {
+            totalDesc = '※屋齡未滿30年，老宅延壽補助不適用，以上為跨部會加值補助總額';
+        } else if (totalAmount > 0) {
+            totalDesc = '以上為每戶「室內補助」+「加值補助」預估總額，公共空間補助另計';
+        }
+        document.getElementById('total-desc').innerText = totalDesc;
+    });
+});
+</script><!-- 一次到位的改造流程圖 -->
+<section>
+    <h2 class="section-title">🗺️ 一次到位改造流程圖「打怪升級包」</h2>
+    <div class="info-card" style="border-left-color: #e67e22;">
+        <p style="font-size: 1.1rem; margin-bottom: 25px;">用一次工程，拿到最多補助！照著這張圖走，從評估到完工，一路領取政府補助大禮包。</p>
+        
+        <!-- 流程圖主體 -->
+        <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+            
+            <!-- 第一階段：評估打怪 -->
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                <div style="width: 50px; height: 50px; background: #3498db; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">1</div>
+                <div style="margin-left: 15px;">
+                    <h3 style="color: #2c3e50; margin-bottom: 5px;">第一關：評估打怪</h3>
+                    <p style="color: #7f8c8d;">取得住戶同意 → 申請結構安全評估 (補助1.5萬~40萬)</p>
+                </div>
+            </div>
+            
+            <!-- 連接線 -->
+            <div style="margin-left: 25px; border-left: 3px dashed #3498db; height: 30px;"></div>
+            
+            <!-- 第二階段：申請大禮包 -->
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                <div style="width: 50px; height: 50px; background: #e67e22; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">2</div>
+                <div style="margin-left: 15px;">
+                    <h3 style="color: #2c3e50; margin-bottom: 5px;">第二關：申請大禮包</h3>
+                    <p style="color: #7f8c8d;">同時送件三大部會，一次搞定</p>
+                </div>
+            </div>
+            
+            <!-- 三大補助並排 -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0 20px 70px;">
+                <!-- 內政部 -->
+                <div style="background: #e8f5e9; border-radius: 10px; padding: 15px; text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;">🏠</div>
+                    <div style="font-weight: 700; color: #27ae60;">內政部</div>
+                    <div style="font-size: 0.9rem;">老宅延壽補助</div>
+                    <div style="font-size: 0.8rem; color: #2c3e50; margin-top: 5px;">公共空間最高960萬<br>室內最高20-30萬/戶</div>
+                </div>
+                
+                <!-- 經濟部 -->
+                <div style="background: #fff3e0; border-radius: 10px; padding: 15px; text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;">☀️</div>
+                    <div style="font-weight: 700; color: #e67e22;">經濟部</div>
+                    <div style="font-size: 0.9rem;">綠能加值</div>
+                    <div style="font-size: 0.8rem; color: #2c3e50; margin-top: 5px;">太陽光電最高30萬<br>節能家電每台3,000元</div>
+                </div>
+                
+                <!-- 衛福部 -->
+                <div style="background: #f9e1e0; border-radius: 10px; padding: 15px; text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 8px;">❤️</div>
+                    <div style="font-weight: 700; color: #c0392b;">衛福部</div>
+                    <div style="font-size: 0.9rem;">長照加值</div>
+                    <div style="font-size: 0.8rem; color: #2c3e50; margin-top: 5px;">輔具+無障礙<br>每3年最高6萬元</div>
+                </div>
+            </div>
+            
+            <div style="margin-left: 25px; border-left: 3px dashed #e67e22; height: 30px;"></div>
+            
+            <!-- 第三階段：整合施工 -->
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                <div style="width: 50px; height: 50px; background: #27ae60; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">3</div>
+                <div style="margin-left: 15px;">
+                    <h3 style="color: #2c3e50; margin-bottom: 5px;">第三關：整合施工</h3>
+                    <p style="color: #7f8c8d;">一次發包，多項工程同時進行，節省時間與成本</p>
+                </div>
+            </div>
+            
+            <!-- 施工流程圖 (橫向) -->
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin: 20px 0 20px 70px; gap: 10px;">
+                <div style="background: #f8f9fa; border-radius: 8px; padding: 10px; flex: 1; min-width: 100px; text-align: center;">
+                    <span style="font-size: 1.5rem; display: block;">🔨</span>
+                    <span style="font-size: 0.9rem;">拆除工程</span>
+                </div>
+                <div style="background: #f8f9fa; border-radius: 8px; padding: 10px; flex: 1; min-width: 100px; text-align: center;">
+                    <span style="font-size: 1.5rem; display: block;">💧</span>
+                    <span style="font-size: 0.9rem;">水電工程</span>
+                </div>
+                <div style="background: #f8f9fa; border-radius: 8px; padding: 10px; flex: 1; min-width: 100px; text-align: center;">
+                    <span style="font-size: 1.5rem; display: block;">🧱</span>
+                    <span style="font-size: 0.9rem;">泥作防水</span>
+                </div>
+                <div style="background: #f8f9fa; border-radius: 8px; padding: 10px; flex: 1; min-width: 100px; text-align: center;">
+                    <span style="font-size: 1.5rem; display: block;">🪵</span>
+                    <span style="font-size: 0.9rem;">木作工程</span>
+                </div>
+                <div style="background: #f8f9fa; border-radius: 8px; padding: 10px; flex: 1; min-width: 100px; text-align: center;">
+                    <span style="font-size: 1.5rem; display: block;">🎨</span>
+                    <span style="font-size: 0.9rem;">油漆工程</span>
+                </div>
+                <div style="background: #f8f9fa; border-radius: 8px; padding: 10px; flex: 1; min-width: 100px; text-align: center;">
+                    <span style="font-size: 1.5rem; display: block;">☀️</span>
+                    <span style="font-size: 0.9rem;">太陽光電</span>
+                </div>
+                <div style="background: #f8f9fa; border-radius: 8px; padding: 10px; flex: 1; min-width: 100px; text-align: center;">
+                    <span style="font-size: 1.5rem; display: block;">🪑</span>
+                    <span style="font-size: 0.9rem;">系統櫃</span>
+                </div>
+            </div>
+            
+            <div style="margin-left: 25px; border-left: 3px dashed #27ae60; height: 30px;"></div>
+            
+            <!-- 第四階段：完工請款 -->
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                <div style="width: 50px; height: 50px; background: #f1c40f; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold;">4</div>
+                <div style="margin-left: 15px;">
+                    <h3 style="color: #2c3e50; margin-bottom: 5px;">第四關：完工請款</h3>
+                    <p style="color: #7f8c8d;">竣工備查 → 檢附發票收據 → 政府撥款 (最高補助65%)</p>
+                </div>
+            </div>
+            
+            <!-- 最終獎勵 -->
+            <div style="margin-top: 30px; background: #fef9e7; border-radius: 10px; padding: 20px; border: 2px solid #f1c40f;">
+                <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                    <div style="font-size: 3rem;">🎁</div>
+                    <div>
+                        <h4 style="color: #2c3e50; margin-bottom: 5px;">通關獎勵總和</h4>
+                        <p style="font-size: 1.3rem; font-weight: 700; color: #e67e22;">每戶最高可領 36萬 ~ 66萬元 + 公共空間960萬元</p>
+                        <p style="font-size: 0.9rem; color: #7f8c8d;">*試算：室內補助20-30萬 + 太陽光電30萬 + 節能家電(多台) + 長照輔具4-6萬</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 備註 -->
+        <div style="margin-top: 20px; font-size: 0.9rem; background: #f8f9fa; padding: 15px; border-radius: 8px;">
+            <i class="fas fa-lightbulb" style="color: #f1c40f; margin-right: 8px;"></i>
+            <strong>打怪升級小撇步：</strong> 建議先申請「結構安全評估」(補助1.5萬)，確認房屋狀況後，再委託建築師一次規劃所有修繕項目，將老宅延壽、太陽光電、節能家電、長照輔具「打包申請」，省時省力又拿最多補助！[citation:1][citation:2][citation:6]
+        </div>
+    </div>
+</section>
+            
+            
             <!-- 申請資格與排除條件 -->
             <section>
                 <h2 class="section-title">申請資格與排除條件</h2>
