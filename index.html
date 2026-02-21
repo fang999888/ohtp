@@ -47,18 +47,18 @@
                 <p class="hero-subtitle">修繕延壽、原址改建、都更重建 — 整合政府最新法規與補助，幫您找出最適合的路</p>
                 
                 <!-- 快速查詢表單 -->
-                <div class="quick-form">
-                    <h2><i class="fas fa-search"></i> 快速查詢：您的房屋適用哪條路？</h2>
-                    <div class="form-row">
-    <div class="form-group" style="flex: 0 0 100%; margin-bottom: 20px;">
-        <label for="address">輸入地址自動帶入數據</label>
-        <div id="map" style="height:400px; margin-top:10px;"></div>
-        <div style="display: flex; gap: 10px;">
-            <input type="text" id="address" placeholder="例如：不要輸入暫時沒有用..." style="flex: 1;">
-            <button type="button" id="btn-lookup" class="btn btn-secondary" style="white-space: nowrap;">
-                <i class="fas fa-search-location"></i> 查詢分區
-            </button>
-        </div>
+                 <div class="controls">
+        <input type="text" id="address" placeholder="請輸入地址" style="width: 300px;">
+        <button id="btn-lookup">查詢定位</button>
+        <label>
+            <input type="checkbox" id="toggleZoning" checked> 顯示土地使用分區
+        </label>
+        <label>
+            透明度 <input type="range" id="opacitySlider" min="0" max="1" step="0.1" value="0.7">
+        </label>
+    </div>
+    <div id="map"></div>
+    <div id="zoning-display">請輸入地址查詢</div>
         <small id="zoning-display" style="color: #666; margin-top: 5px; display: block;"></small>
     
     </div>
@@ -293,7 +293,98 @@
             </div>
         </div>
     </footer>
+  <!-- 載入 Google Maps API（請替換 YOUR_API_KEY） -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap" async defer></script>
 
+    <script>
+        let map;
+        let zoningLayer;
+        let marker;
+        let geocoder;
+
+        function initMap() {
+            // 初始化 Google 地圖
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 23.5, lng: 121 },
+                zoom: 8,
+                mapTypeId: 'roadmap'
+            });
+
+            geocoder = new google.maps.Geocoder();
+            marker = new google.maps.Marker({ map: map, visible: false });
+
+            // 建立內政部土地使用分區圖層（WMTS）
+            zoningLayer = new google.maps.ImageMapType({
+                getTileUrl: function(coord, zoom) {
+                    // 使用 LUIMAP 圖層（國土利用現況）
+                    return `https://wmts.nlsc.gov.tw/wmts/LUIMAP/default/GoogleMapsCompatible/${zoom}/${coord.y}/${coord.x}`;
+                },
+                tileSize: new google.maps.Size(256, 256),
+                name: '土地使用分區',
+                opacity: 0.7
+            });
+
+            // 加入圖層
+            map.overlayMapTypes.push(zoningLayer);
+
+            // 綁定事件
+            document.getElementById('btn-lookup').addEventListener('click', lookupAddress);
+            document.getElementById('toggleZoning').addEventListener('change', toggleZoningLayer);
+            document.getElementById('opacitySlider').addEventListener('input', adjustOpacity);
+        }
+
+        function lookupAddress() {
+            const address = document.getElementById('address').value.trim();
+            if (!address) return alert('請輸入地址');
+
+            document.getElementById('zoning-display').innerText = '查詢中...';
+
+            geocoder.geocode({ address: address }, function(results, status) {
+                if (status === 'OK' && results.length > 0) {
+                    const location = results[0].geometry.location;
+                    
+                    // 移動地圖
+                    map.setCenter(location);
+                    map.setZoom(18);
+                    
+                    // 顯示標記
+                    marker.setPosition(location);
+                    marker.setVisible(true);
+                    
+                    // 解析地址
+                    let city = '', district = '';
+                    for (const component of results[0].address_components) {
+                        if (component.types.includes('administrative_area_level_1')) {
+                            city = component.long_name;
+                        }
+                        if (component.types.includes('administrative_area_level_3') || 
+                            component.types.includes('locality')) {
+                            district = component.long_name;
+                        }
+                    }
+                    
+                    document.getElementById('zoning-display').innerHTML = 
+                        `📍 定位成功：${results[0].formatted_address}<br>
+                         行政區：${city} ${district}<br>
+                         使用分區：請參考地圖上的顏色區塊（圖層名稱：國土利用現況）`;
+                } else {
+                    document.getElementById('zoning-display').innerText = '查詢失敗，請確認地址';
+                }
+            });
+        }
+
+        function toggleZoningLayer(e) {
+            if (e.target.checked) {
+                map.overlayMapTypes.push(zoningLayer);
+            } else {
+                map.overlayMapTypes.clear();
+            }
+        }
+
+        function adjustOpacity(e) {
+            zoningLayer.opacity = parseFloat(e.target.value);
+        }
+    </script>
     <!-- JavaScript -->
     <script src="assets/js/main.js"></script>
     <link rel="stylesheet"
