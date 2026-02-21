@@ -126,3 +126,119 @@ document.getElementById('btn-lookup').addEventListener('click', async () => {
         console.error("Lookup error:", error);
     }
 });
+// 初始化地圖
+
+var map = L.map('map').setView([25.0330,121.5654],13);
+
+
+// 底圖
+
+L.tileLayer(
+
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+
+).addTo(map);
+
+
+// 政府土地分區圖層
+
+
+var landuseLayer =
+
+L.tileLayer.wms(
+
+"https://wms.nlsc.gov.tw/wms",
+
+{
+
+layers:"LUIMAP",
+
+format:"image/png",
+
+transparent:true
+
+}
+
+).addTo(map);
+
+
+
+var marker;
+
+
+
+// 查詢按鈕
+
+
+document
+
+.getElementById("btn-lookup")
+
+.addEventListener("click", function(){
+
+
+var address =
+
+document.getElementById("address").value;
+
+
+
+fetch(
+
+"https://nominatim.openstreetmap.org/search?format=json&q="
+
++ address
+
+)
+
+.then(res=>res.json())
+
+.then(data=>{
+
+
+if(data.length==0){
+
+alert("找不到地址");
+
+return;
+
+}
+
+
+var lat=data[0].lat;
+
+var lon=data[0].lon;
+
+
+
+map.setView([lat,lon],18);
+
+
+
+if(marker){
+
+map.removeLayer(marker);
+
+}
+
+
+marker = L.marker([lat,lon]).addTo(map);
+
+
+
+// 顯示文字
+
+
+document
+
+.getElementById("zoning-display")
+
+.innerHTML =
+
+"已定位，可查看地圖顏色判斷土地分區";
+
+
+});
+
+
+});
