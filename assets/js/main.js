@@ -1,4 +1,4 @@
-// main.js 完整整合版（支援 User-Agent，錯誤訊息更清楚）
+// main.js 完整整合版（表單分析 + 地址查詢，支援後端代理）
 document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ main.js 已載入');
 
@@ -11,28 +11,67 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ---------- 2. 快速查詢表單提交 ----------
+    // ---------- 2. 快速查詢表單提交（原有邏輯）----------
     const quickForm = document.getElementById('quick-check-form');
     if (quickForm) {
         quickForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            console.log('✅ 表單送出事件觸發');
+
             const houseAge = document.getElementById('house-age').value;
             const floors = document.getElementById('floors').value;
             const city = document.getElementById('city').value;
+
             if (!houseAge || !floors || !city) {
                 alert('請填寫必填欄位：屋齡、樓層數、所在縣市');
                 return;
             }
-            // 可自行擴充判斷邏輯
-            alert('表單已送出（分析邏輯請自行加入）');
+
+            // 以下保留您原有的推薦邏輯（可依實際需求擴充）
+            let recommendedPath = '';
+            let reason = '';
+
+            if (houseAge === 'under30') {
+                recommendedPath = '可能需要等待';
+                reason = '您的房屋屋齡未滿30年，目前老宅延壽計畫、危老條例都需屋齡30年以上。建議持續關注未來政策。';
+            } else {
+                const structure = document.getElementById('structure').value;
+                const households = document.getElementById('households').value;
+
+                if (structure === 'danger' || structure === 'major') {
+                    recommendedPath = '路徑B：原址改建 (危老)';
+                    reason = '您的房屋結構有明顯疑慮，建議優先考慮危老重建，可獲容積獎勵且快速處理安全問題。';
+                } else if (households === '1' || households === '2-5') {
+                    if (floors === '1-3' || floors === '4-5') {
+                        recommendedPath = '路徑B：原址改建 (危老)';
+                        reason = '住戶數少、樓層不高，較容易達成100%同意，適合申請危老重建。';
+                    } else {
+                        recommendedPath = '路徑A：修繕延壽';
+                        reason = '樓層較高、住戶較多，危老需100%同意門檻較高，建議先從修繕延壽著手。';
+                    }
+                } else {
+                    if (floors === '6-7' || floors === 'over8') {
+                        recommendedPath = '路徑C：都更重建';
+                        reason = '您的房屋樓層較高、住戶數多，較符合都更重建的規模，建議諮詢都更輔導團。';
+                    } else {
+                        recommendedPath = '路徑A：修繕延壽';
+                        reason = '建議先申請修繕補助改善居住品質，同時與鄰居討論未來改建可能性。';
+                    }
+                }
+            }
+
+            alert(`初步分析結果：\n\n建議優先考慮：${recommendedPath}\n\n原因：${reason}\n\n此為初步判斷，實際適用方案請諮詢當地政府窗口。`);
         });
 
+        // 清除按鈕
         const resetBtn = quickForm.querySelector('button[type="reset"]');
         if (resetBtn) {
             resetBtn.addEventListener('click', function() {
                 quickForm.reset();
             });
         }
+    } else {
+        console.error('❌ 找不到表單元素 #quick-check-form');
     }
 
     // ---------- 3. 導航 active 狀態 ----------
@@ -45,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ---------- 4. 地圖與地址查詢 ----------
+    // ---------- 4. 地址查詢與地圖（透過後端代理解決 CORS）----------
     const mapDiv = document.getElementById('map');
     const lookupBtn = document.getElementById('btn-lookup');
     const addressInput = document.getElementById('address');
@@ -59,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
             attribution: '&copy; OpenStreetMap 貢獻者'
         }).addTo(map);
         let marker = L.marker([23.5, 121]).addTo(map);
-        marker.setOpacity(0);
+        marker.setOpacity(0); // 預設隱藏
 
         lookupBtn.addEventListener('click', async function() {
             const address = addressInput.value.trim();
@@ -70,39 +109,35 @@ document.addEventListener('DOMContentLoaded', function() {
             zoningDisplay.innerText = '查詢中...';
 
             try {
-                const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&accept-language=zh-TW&countrycodes=tw&limit=1&q=${encodeURIComponent(address)}`;
-                const response = await fetch(url, {
-                    headers: {
-                        'Accept': 'application/json',
-                        'User-Agent': 'OldHouseInfo/1.0 (fang681127@gmail.com)' // 請修改為您的信箱
-                    }
+                // 呼叫自己的後端代理（請確認後端已實作 /get-zoning）
+                const response = await fetch('https://ohtp.onrender.com/get-zoning', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ address: address })
                 });
 
                 if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
+                    const err = await response.json();
+                    throw new Error(err.error || `HTTP ${response.status}`);
                 }
 
                 const data = await response.json();
 
-                if (!data || data.length === 0) {
-                    zoningDisplay.innerText = '查不到地址，請輸入更完整地址 (例如：臺北市信義路三段100號)';
-                    return;
-                }
-
-                const result = data[0];
-                const lat = parseFloat(result.lat);
-                const lon = parseFloat(result.lon);
+                // 後端應回傳至少包含 lat, lon, display_name, address 等欄位
+                const lat = parseFloat(data.lat);
+                const lon = parseFloat(data.lon);
 
                 map.setView([lat, lon], 18);
                 marker.setLatLng([lat, lon]).setOpacity(1);
 
-                let displayText = `📍 定位成功：${result.display_name}`;
-                if (result.address) {
-                    const addr = result.address;
+                let displayText = `📍 定位成功：${data.display_name}`;
+                if (data.address) {
+                    const addr = data.address;
                     const city = addr.city || addr.town || addr.county || '';
                     const district = addr.suburb || addr.neighbourhood || '';
                     displayText += `\n行政區：${city} ${district}`;
 
+                    // 自動選取縣市下拉選單
                     if (citySelect) {
                         const cityMap = {
                             '台北市': 'taipei', '臺北市': 'taipei',
@@ -119,7 +154,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     }
                 }
-                displayText += '\n使用分區：住宅區 (模擬資料)';
+                // 顯示分區（可從 data.zoning 取得，若無則顯示模擬文字）
+                displayText += `\n使用分區：${data.zoning || '住宅區 (模擬)'}`;
                 zoningDisplay.innerText = displayText;
             } catch (error) {
                 console.error('查詢錯誤:', error);
