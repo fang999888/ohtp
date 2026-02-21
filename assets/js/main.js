@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const response = await fetch(
 
-                "https://api.nlsc.gov.tw/other/TownVillagePointQuery/" +
+                "https://nominatim.openstreetmap.org/search?format=json&countrycodes=tw&q=" +
 
                 encodeURIComponent(address)
 
