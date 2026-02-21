@@ -126,44 +126,141 @@ document.getElementById('btn-lookup').addEventListener('click', async () => {
         console.error("Lookup error:", error);
     }
 });
-fetch(
-"https://api.nlsc.gov.tw/other/TownVillagePointQuery/"
-+ encodeURIComponent(address)
-)
-.then(res=>res.json())
-.then(data=>{
+// ===== GIS 土地分區查詢模組（獨立，不影響原功能） =====
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const btnLookup = document.getElementById('btn-lookup');
+
+    if (!btnLookup) return;
+
+    console.log("✅ GIS 模組載入");
 
 
-if(!data || data.length==0){
+    // 初始化地圖
 
-document.getElementById("zoning-display").innerHTML =
-"查不到地址";
+    const mapDiv = document.getElementById('map');
 
-return;
+    if (!mapDiv) {
 
-}
+        console.warn("⚠️ 沒有 map div");
 
-
-var lat = data[0].y;
-
-var lon = data[0].x;
+        return;
+    }
 
 
-map.setView([lat,lon],18);
+    const map = L.map('map').setView([25.0330, 121.5654], 13);
 
 
-if(marker){
+    L.tileLayer(
 
-map.removeLayer(marker);
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
-}
-
-
-marker = L.marker([lat,lon]).addTo(map);
+    ).addTo(map);
 
 
-document.getElementById("zoning-display").innerHTML =
-"定位成功";
+
+    // 政府土地分區圖層
+
+    L.tileLayer.wms(
+
+        "https://wms.nlsc.gov.tw/wms",
+
+        {
+
+            layers: "LUIMAP",
+
+            format: "image/png",
+
+            transparent: true
+
+        }
+
+    ).addTo(map);
 
 
-})
+
+    let marker = null;
+
+
+
+    // 查詢事件
+
+    btnLookup.addEventListener('click', async function () {
+
+        const address = document.getElementById('address').value;
+
+        const display = document.getElementById('zoning-display');
+
+
+        if (!address) {
+
+            alert("請輸入地址");
+
+            return;
+
+        }
+
+
+        display.innerText = "查詢中...";
+
+
+        try {
+
+            const response = await fetch(
+
+                "https://api.nlsc.gov.tw/other/TownVillagePointQuery/" +
+
+                encodeURIComponent(address)
+
+            );
+
+
+            const data = await response.json();
+
+
+            if (!data || data.length === 0) {
+
+                display.innerText = "查不到地址";
+
+                return;
+
+            }
+
+
+            const lat = data[0].y;
+
+            const lon = data[0].x;
+
+
+            map.setView([lat, lon], 18);
+
+
+            if (marker) {
+
+                map.removeLayer(marker);
+
+            }
+
+
+            marker = L.marker([lat, lon]).addTo(map);
+
+
+            display.innerHTML =
+
+                '<i class="fas fa-check-circle"></i> 已定位，請查看地圖顏色判斷土地分區';
+
+
+        }
+
+        catch (error) {
+
+            display.innerText = "查詢失敗，請手動輸入";
+
+            console.error(error);
+
+        }
+
+    });
+
+});
