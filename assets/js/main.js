@@ -1,4 +1,4 @@
-// main.js 完整整合版（保證所有括號閉合，地圖與表單功能正常）
+// main.js 完整整合版（支援 User-Agent，錯誤訊息更清楚）
 document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ main.js 已載入');
 
@@ -23,12 +23,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('請填寫必填欄位：屋齡、樓層數、所在縣市');
                 return;
             }
-
-            // 此處保留您的判斷邏輯（可自行擴充）
+            // 可自行擴充判斷邏輯
             alert('表單已送出（分析邏輯請自行加入）');
         });
 
-        // 清除按鈕
         const resetBtn = quickForm.querySelector('button[type="reset"]');
         if (resetBtn) {
             resetBtn.addEventListener('click', function() {
@@ -54,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const zoningDisplay = document.getElementById('zoning-display');
     const citySelect = document.getElementById('city');
 
-    // 如果頁面上有地圖相關元素才執行
     if (mapDiv && lookupBtn) {
         // 初始化 Leaflet 地圖
         const map = L.map('map').setView([23.5, 121], 7);
@@ -62,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
             attribution: '&copy; OpenStreetMap 貢獻者'
         }).addTo(map);
         let marker = L.marker([23.5, 121]).addTo(map);
-        marker.setOpacity(0); // 預設隱藏
+        marker.setOpacity(0);
 
         lookupBtn.addEventListener('click', async function() {
             const address = addressInput.value.trim();
@@ -75,12 +72,20 @@ document.addEventListener('DOMContentLoaded', function() {
             try {
                 const url = `https://nominatim.openstreetmap.org/search?format=jsonv2&accept-language=zh-TW&countrycodes=tw&limit=1&q=${encodeURIComponent(address)}`;
                 const response = await fetch(url, {
-                    headers: { 'Accept': 'application/json' }
+                    headers: {
+                        'Accept': 'application/json',
+                        'User-Agent': 'OldHouseInfo/1.0 (fang681127@gmail.com)' // 請修改為您的信箱
+                    }
                 });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
                 const data = await response.json();
 
                 if (!data || data.length === 0) {
-                    zoningDisplay.innerText = '查不到地址，請輸入更完整的地址';
+                    zoningDisplay.innerText = '查不到地址，請輸入更完整地址 (例如：臺北市信義路三段100號)';
                     return;
                 }
 
@@ -98,7 +103,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     const district = addr.suburb || addr.neighbourhood || '';
                     displayText += `\n行政區：${city} ${district}`;
 
-                    // 自動選取縣市下拉選單
                     if (citySelect) {
                         const cityMap = {
                             '台北市': 'taipei', '臺北市': 'taipei',
@@ -119,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 zoningDisplay.innerText = displayText;
             } catch (error) {
                 console.error('查詢錯誤:', error);
-                zoningDisplay.innerText = '查詢失敗，請稍後再試。';
+                zoningDisplay.innerText = `查詢失敗：${error.message}。請稍後再試。`;
             }
         });
     }
