@@ -185,82 +185,104 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // 查詢事件
+btnLookup.addEventListener('click', async function () {
 
-    btnLookup.addEventListener('click', async function () {
+const address = document.getElementById('address').value.trim();
 
-        const address = document.getElementById('address').value;
+const display = document.getElementById('zoning-display');
 
-        const display = document.getElementById('zoning-display');
+if (!address) {
 
+alert("請輸入地址");
 
-        if (!address) {
+return;
 
-            alert("請輸入地址");
+}
 
-            return;
+display.innerText = "查詢中...";
 
-        }
-
-
-        display.innerText = "查詢中...";
-
-
-        try {
-
-            const response = await fetch(
-
-                "https://nominatim.openstreetmap.org/search?format=json&countrycodes=tw&q=" +
-
-                encodeURIComponent(address)
-
-            );
+try {
 
 
-            const data = await response.json();
+// ⭐ 加 language + 台灣限定 + jsonv2
 
 
-            if (!data || data.length === 0) {
-
-                display.innerText = "查不到地址";
-
-                return;
-
-            }
-
-
-            const lat = data[0].y;
-
-            const lon = data[0].x;
+const url =
+"https://nominatim.openstreetmap.org/search?format=jsonv2"
++ "&accept-language=zh-TW"
++ "&countrycodes=tw"
++ "&limit=1"
++ "&q=" + encodeURIComponent(address);
 
 
-            map.setView([lat, lon], 18);
+console.log("查詢 URL:", url);
 
 
-            if (marker) {
+const response = await fetch(url, {
 
-                map.removeLayer(marker);
+headers: {
 
-            }
+'Accept': 'application/json'
 
-
-            marker = L.marker([lat, lon]).addTo(map);
-
-
-            display.innerHTML =
-
-                '<i class="fas fa-check-circle"></i> 已定位，請查看地圖顏色判斷土地分區';
-
-
-        }
-
-        catch (error) {
-
-            display.innerText = "查詢失敗，請手動輸入";
-
-            console.error(error);
-
-        }
-
-    });
+}
 
 });
+
+
+const data = await response.json();
+
+console.log("回傳資料:", data);
+
+
+// 查不到
+
+
+if (!data || data.length === 0) {
+
+display.innerText = "查不到地址，請輸入完整地址";
+
+return;
+
+}
+
+
+const lat = parseFloat(data[0].lat);
+
+const lon = parseFloat(data[0].lon);
+
+
+// 移動地圖
+
+
+map.setView([lat, lon], 18);
+
+
+// marker
+
+
+if (marker) {
+
+map.removeLayer(marker);
+
+}
+
+
+marker = L.marker([lat, lon]).addTo(map);
+
+
+display.innerHTML =
+"✅ 定位成功";
+
+
+}
+
+catch (error) {
+
+display.innerText = "查詢失敗";
+
+console.error(error);
+
+}
+
+});
+    
